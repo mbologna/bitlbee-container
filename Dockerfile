@@ -411,11 +411,16 @@ RUN groupadd -r -g 1000 bitlbee && \
     chown bitlbee:bitlbee /var/run/bitlbee.pid && \
     chmod 644 /var/run/bitlbee.pid
 
-# Health check script — checks the TLS ports only; plaintext is loopback-internal
+# Health check script: every service is listening (stunnel on the TLS ports 6697
+# and 6698, BitlBee on 6667 and matrix2051 on 2051 behind it). It reads the
+# kernel's socket table instead of connecting: a bare TCP connect to a TLS port
+# made stunnel log an SSL_accept error on every probe (every 10-30 s).
 COPY --chmod=755 <<'EOF' /usr/local/bin/healthcheck.sh
 #!/bin/sh
-nc -z localhost 6697 || exit 1
-nc -z localhost 6698 || exit 1
+# Ports in hex as /proc/net/tcp{,6} shows them; state 0A is LISTEN.
+for port in 1A29 1A2A 1A0B 0803; do
+  grep -qE "^ *[0-9]+: [0-9A-F]+:${port} [0-9A-F]+:[0-9A-F]+ 0A " /proc/net/tcp /proc/net/tcp6 2>/dev/null || exit 1
+done
 EOF
 
 # Entrypoint: first-run init script, run by s6-overlay before services start
