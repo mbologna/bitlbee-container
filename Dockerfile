@@ -341,11 +341,14 @@ FROM debian:stable-slim@sha256:fbfb4059d2127120aa05b6e6064523d2102552f0cf0026ddf
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install runtime dependencies with cache mount
+# Install runtime dependencies with cache mount, after applying the
+# distribution's security fixes published since the base image was built
+# (Docker's official images are rebuilt only every week or few)
 # hadolint ignore=DL3008
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
+    apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
       libpurple0 libotr5 libssl3 libgnutls30 libgcrypt20 \
       libglib2.0-0 libjson-glib-1.0-0 libprotobuf-c1 \
