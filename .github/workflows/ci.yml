@@ -37,10 +37,6 @@ jobs:
       # Only release tags publish the image (auto-release dispatches
       # their build); pull requests build it without pushing.
       publish: release
-      # The image was docker-bitlbee until 2026-11-11. Registries don't
-      # redirect a renamed repository, so the old name keeps getting the same
-      # builds, with no end date.
-      legacy_image_names: docker-bitlbee
       yamllint_paths: docker-compose.yml .github/workflows/
       enable_integration_test: true
       # Image policy check: s6-overlay runs as root as PID 1 to supervise the
