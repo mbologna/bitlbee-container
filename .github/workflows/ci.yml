@@ -47,7 +47,7 @@ jobs:
       # auto-release runs inside docker-ci: Monday's schedule releases with
       # this strategy, a push to main only a CVE fix.
       release_strategy: conventional
-      # Tags carry BitlBee's version as build metadata (v5.2.0+up3.6),
-      # pattern A of mbologna/.github's VERSIONING.md.
+      # Tags carry BitlBee's version as SemVer build metadata (v5.2.0+up3.6),
+      # as mbologna/.github's VERSIONING.md describes.
       release_metadata_command: printf 'up%s' "$(sed -n 's/^ARG BITLBEE_VERSION=//p' Dockerfile)"
     secrets: inherit
