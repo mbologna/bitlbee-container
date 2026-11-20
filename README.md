@@ -55,9 +55,11 @@ security release, both patches. A new BitlBee version releases on its own.
 This is pattern A of the
 [versioning standard](https://github.com/mbologna/.github/blob/main/VERSIONING.md).
 
-Up to `v3.6.18` the tags started with BitlBee's version (3.6) and the last
-number counted rebuilds. `v4.0.0` to `v5.1.3` are the image's own version
-without metadata.
+Every release is tagged this way. The releases first published as
+`v3.6.0` to `v3.6.18`, BitlBee's version with a rebuild counter, are now
+`v1.0.0+up3.6` to `v1.1.14+up3.6`; their images exist only under the old
+`docker-bitlbee` name, tagged `3.6.N`. `v4.0.0+up3.6` onwards keep the
+numbers their images carry.
 
 The bundled component versions are recorded as image labels:
 
