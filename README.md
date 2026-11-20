@@ -51,8 +51,8 @@ publishes the image as `mbologna/bitlbee:5.2.0`, `5.2` and `latest` (image tags
 can't contain `+`). The version follows the Conventional Commits: a `feat` is
 a minor, a `fix` a patch, a breaking change a major. A plugin or base image
 update ships in a maintenance release, and a rebuild that fixes CVEs in a
-security release, both patches. A new BitlBee version releases on its own.
-This is pattern A of the
+security release, both patches. A new BitlBee version releases on its own, as
+a minor or, if it breaks something, a major. See the
 [versioning standard](https://github.com/mbologna/.github/blob/main/VERSIONING.md).
 
 Every release is tagged this way. The releases first published as
