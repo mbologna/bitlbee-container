@@ -45,13 +45,19 @@ A Docker container for [BitlBee](https://www.bitlbee.org/) with extensive protoc
 
 ## Versioning
 
-The image has its own version, separate from BitlBee's. A tag `vX.Y.Z` (image
-`mbologna/bitlbee:X.Y.Z`) identifies a build of this repository: a new
-patch release is cut automatically whenever the weekly rebuild produces a
-different image, for example because of a base-image or plugin update.
+The image has its own version, with BitlBee's as build metadata: the tag
+`v5.2.0+up3.6` is version 5.2.0 of this repository, built on BitlBee 3.6, and
+publishes the image as `mbologna/bitlbee:5.2.0`, `5.2` and `latest` (image tags
+can't contain `+`). The version follows the Conventional Commits: a `feat` is
+a minor, a `fix` a patch, a breaking change a major. A plugin or base image
+update ships in a maintenance release, and a rebuild that fixes CVEs in a
+security release, both patches. A new BitlBee version releases on its own.
+This is pattern A of the
+[versioning standard](https://github.com/mbologna/.github/blob/main/VERSIONING.md).
 
 Up to `v3.6.18` the tags started with BitlBee's version (3.6) and the last
-number counted rebuilds. Releases from `v4.0.0` on use the image's own version.
+number counted rebuilds. `v4.0.0` to `v5.1.3` are the image's own version
+without metadata.
 
 The bundled component versions are recorded as image labels:
 
