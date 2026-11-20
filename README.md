@@ -7,9 +7,10 @@
 
 > **Renamed on 2026-11-11.** This repository was `docker-bitlbee` and the image
 > was `mbologna/docker-bitlbee`; pull `mbologna/bitlbee` (or
-> `ghcr.io/mbologna/bitlbee`) instead. The old image name keeps getting the same
-> builds, so nothing breaks if you stay on it. Release tags published before
-> the rename exist only under the old name. The component version labels moved
+> `ghcr.io/mbologna/bitlbee`) instead. The old name got the same builds until
+> 2026-11-20 and gets none since: its last image is 5.1.3, and it receives no
+> security rebuilds. Release tags published before the rename exist only under
+> the old name. The component version labels moved
 > from `io.github.mbologna.docker-bitlbee.*` to
 > `io.github.mbologna.bitlbee-container.*` in the release after 5.1.0.
 
