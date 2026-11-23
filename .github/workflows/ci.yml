@@ -34,6 +34,9 @@ jobs:
     uses: mbologna/.github/.github/workflows/docker-ci.yml@935e4a724ac131476dd6c3e5d141cbb1bb651a6d # main
     with:
       image_name: bitlbee
+      # One of the two images also on Docker Hub (with saltstack-container):
+      # docker-ci pushes to GHCR only unless asked.
+      push_to_dockerhub: true
       # Only release tags publish the image (auto-release dispatches
       # their build); pull requests build it without pushing.
       publish: release
