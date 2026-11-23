@@ -320,6 +320,14 @@ Once linked, the bridge invites you to a Matrix room for each Facebook chat. Acc
 
 `matrix-register` reads the registration token from the container. The token is also printed in the logs on first start, or can be fixed with `MATRIX_REGISTRATION_TOKEN` in `.env`.
 
+## Why not an existing tool
+
+- BitlBee upstream publishes no container image, and there is no official BitlBee image on Docker Hub.
+- Community images are minimal builds or no longer updated: [ezkrg/bitlbee-libpurple](https://hub.docker.com/r/ezkrg/bitlbee-libpurple), for example, was last pushed in 2023.
+- None of them bundles TLS through stunnel, a Matrix homeserver and its bridges, supervised by s6.
+
+Checked 2026-11-23.
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=mbologna/bitlbee-container&type=date&legend=top-left)](https://www.star-history.com/#mbologna/bitlbee-container&type=date&legend=top-left)
