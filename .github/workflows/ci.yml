@@ -21,16 +21,13 @@ permissions:
 
 jobs:
   docker:
-    # contents: the release tag and its Release; actions: dispatch the tag
-    # build (a tag pushed with GITHUB_TOKEN triggers no run); the rest:
-    # push, sign and scan the image.
+    # Build, push, sign and scan the image; the auto-release job below releases.
     permissions:
-      contents: write
+      contents: read
       packages: write
       id-token: write
       attestations: write
       security-events: write
-      actions: write
     uses: mbologna/.github/.github/workflows/docker-ci.yml@935e4a724ac131476dd6c3e5d141cbb1bb651a6d # main
     with:
       image_name: bitlbee
@@ -47,10 +44,23 @@ jobs:
       allow_root: >-
         s6-overlay runs as root as PID 1 to supervise the services; each
         service runs as UID 1000 (s6-setuidgid)
-      # auto-release runs inside docker-ci: Monday's schedule releases with
-      # this strategy, a push to main only a CVE fix.
-      release_strategy: conventional
+    secrets: inherit
+
+  # Monday's schedule tags vX.Y.Z when a feat, fix, perf, revert or breaking commit
+  # landed (or a maintenance release for dependency updates), a push to main tags
+  # only a CVE fix; it dispatches the tag build that publishes the X.Y.Z image.
+  auto-release:
+    needs: [docker]
+    # contents: push the tag and create the Release; actions: dispatch the tag
+    # build (a tag pushed with GITHUB_TOKEN triggers no run).
+    permissions:
+      contents: write
+      actions: write
+    uses: mbologna/.github/.github/workflows/auto-release.yml@935e4a724ac131476dd6c3e5d141cbb1bb651a6d # main
+    with:
+      strategy: conventional
+      image: ghcr.io/mbologna/bitlbee
+      dockerfiles: Dockerfile
       # Tags carry BitlBee's version as SemVer build metadata (v5.2.0+up3.6),
       # as mbologna/.github's VERSIONING.md describes.
-      release_metadata_command: printf 'up%s' "$(sed -n 's/^ARG BITLBEE_VERSION=//p' Dockerfile)"
-    secrets: inherit
+      metadata_command: printf 'up%s' "$(sed -n 's/^ARG BITLBEE_VERSION=//p' Dockerfile)"
