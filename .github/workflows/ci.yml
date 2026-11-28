@@ -28,7 +28,7 @@ jobs:
       id-token: write
       attestations: write
       security-events: write
-    uses: mbologna/.github/.github/workflows/docker-ci.yml@935e4a724ac131476dd6c3e5d141cbb1bb651a6d # main
+    uses: mbologna/.github/.github/workflows/docker-ci.yml@ea61923970085662e217bf6e40c26d98185a0b42 # main
     with:
       image_name: bitlbee
       # One of the two images also on Docker Hub (with saltstack-container):
@@ -56,7 +56,7 @@ jobs:
     permissions:
       contents: write
       actions: write
-    uses: mbologna/.github/.github/workflows/auto-release.yml@935e4a724ac131476dd6c3e5d141cbb1bb651a6d # main
+    uses: mbologna/.github/.github/workflows/auto-release.yml@ea61923970085662e217bf6e40c26d98185a0b42 # main
     with:
       strategy: conventional
       image: ghcr.io/mbologna/bitlbee
