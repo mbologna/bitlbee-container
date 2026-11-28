@@ -57,7 +57,7 @@ ARG WHATSMEOW_VERSION=v0.0.0-20260909164725-b25a56d63729
 ############################
 # tdlib-builder stage (isolated so TDLib cache is not busted by unrelated version bumps)
 ############################
-FROM --platform=$BUILDPLATFORM buildpack-deps:stable-scm@sha256:4f34e1d673fdb65371de9f88bdd32c4e30152fe692b35604aef5c0b3c0e6da10 AS tdlib-builder
+FROM --platform=$BUILDPLATFORM buildpack-deps:stable-scm@sha256:d524aa66d91264606eddea5b94af462fc3b969b84a1d4083e537a9ab84b579c5 AS tdlib-builder
 
 ARG TDLIB_PURPLE_VERSION
 ARG TARGETARCH
@@ -127,7 +127,7 @@ RUN if [ "${TARGETARCH}" = "arm64" ] && [ "${BUILDPLATFORM}" = "linux/amd64" ]; 
 # Built for the TARGET platform (no --platform=$BUILDPLATFORM): the release
 # bundles ERTS and OTP's crypto NIF, which are arch-specific. CI builds each
 # arch on a native runner; a local cross build runs this stage under QEMU.
-FROM buildpack-deps:stable-scm@sha256:4f34e1d673fdb65371de9f88bdd32c4e30152fe692b35604aef5c0b3c0e6da10 AS matrix2051-builder
+FROM buildpack-deps:stable-scm@sha256:d524aa66d91264606eddea5b94af462fc3b969b84a1d4083e537a9ab84b579c5 AS matrix2051-builder
 
 ARG MATRIX2051_VERSION
 
@@ -167,7 +167,7 @@ RUN grep -q '^      :inet6,$' lib/irc_server.ex && \
 ############################
 # Builder stage
 ############################
-FROM --platform=$BUILDPLATFORM buildpack-deps:stable-scm@sha256:4f34e1d673fdb65371de9f88bdd32c4e30152fe692b35604aef5c0b3c0e6da10 AS builder
+FROM --platform=$BUILDPLATFORM buildpack-deps:stable-scm@sha256:d524aa66d91264606eddea5b94af462fc3b969b84a1d4083e537a9ab84b579c5 AS builder
 
 ARG BITLBEE_VERSION
 ARG BITLBEE_SHA256
@@ -336,7 +336,7 @@ RUN case "${TARGETARCH}" in \
 ############################
 # Runtime stage
 ############################
-FROM debian:stable-slim@sha256:fbfb4059d2127120aa05b6e6064523d2102552f0cf0026ddf0701c12f1f8f3e0
+FROM debian:stable-slim@sha256:a64d9dbf633e2a2503afac76be521dc25d9b5765150b30d31a3914d4ae969cab
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
